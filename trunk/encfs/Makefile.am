@@ -74,6 +74,8 @@ libencfs_la_SOURCES = \
     MACFileIO.cpp \
     NameIO.cpp \
     StreamNameIO.cpp \
+    B32BlockNameIO.cpp \
+    B32StreamNameIO.cpp \
     BlockNameIO.cpp \
     NullNameIO.cpp \
     Interface.cpp \
@@ -129,7 +131,9 @@ noinst_HEADERS = \
     RawFileIO.h \
     readpassphrase.h \
     SSL_Cipher.h \
-    StreamNameIO.h
+    StreamNameIO.h \
+    B32BlockNameIO.h \
+    B32StreamNameIO.h
 
 man_MANS=encfs.1 encfsctl.1
 EXTRA_DIST = encfs.pod encfsctl.pod encfs.1 encfsctl.1 encfs-man.html

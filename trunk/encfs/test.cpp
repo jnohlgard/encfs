@@ -33,6 +33,8 @@
 #include "StreamNameIO.h"
 #include "BlockNameIO.h"
 #include "NullNameIO.h"
+#include "B32BlockNameIO.h"
+#include "B32StreamNameIO.h"
 
 #include <rlog/rlog.h>
 #include <rlog/Error.h>
@@ -279,7 +281,24 @@ bool runTests(const shared_ptr<Cipher> &cipher, bool verbose)
 	if(!testNameCoding( dirNode, verbose ))
 	    return false;
     }
-    
+
+    if(verbose)
+	cerr << "Testing name encode/decode (stream coding w/ IV chaining, Base32)\n";
+    {
+        fsCfg->opts.reset(new EncFS_Opts);
+        fsCfg->opts->idleTracking = false;
+        fsCfg->config->uniqueIV = false;
+
+        fsCfg->nameCoding.reset( new B32StreamNameIO(
+		    B32StreamNameIO::CurrentInterface(), cipher, key ) );
+        fsCfg->nameCoding->setChainedNameIV( true );
+
+        DirNode dirNode( NULL, TEST_ROOTDIR, fsCfg );
+
+	if(!testNameCoding( dirNode, verbose ))
+	    return false;
+    }
+
     if(verbose)
 	cerr << "Testing name encode/decode (block coding w/ IV chaining)\n";
     {
@@ -289,7 +308,23 @@ bool runTests(const shared_ptr<Cipher> &cipher, bool verbose)
 		    BlockNameIO::CurrentInterface(), cipher, key,
 		    cipher->cipherBlockSize() ) );
         fsCfg->nameCoding->setChainedNameIV( true );
-	
+
+        DirNode dirNode( NULL, TEST_ROOTDIR, fsCfg );
+
+	if(!testNameCoding( dirNode, verbose ))
+	    return false;
+    }
+
+    if(verbose)
+	cerr << "Testing name encode/decode (block coding w/ IV chaining), Base32 encoding\n";
+    {
+        fsCfg->opts->idleTracking = false;
+        fsCfg->config->uniqueIV = false;
+        fsCfg->nameCoding.reset( new B32BlockNameIO(
+		    B32BlockNameIO::CurrentInterface(), cipher, key,
+		    cipher->cipherBlockSize() ) );
+        fsCfg->nameCoding->setChainedNameIV( true );
+
         DirNode dirNode( NULL, TEST_ROOTDIR, fsCfg );
 
 	if(!testNameCoding( dirNode, verbose ))
