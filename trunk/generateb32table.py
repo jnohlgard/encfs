@@ -1,4 +1,4 @@
-base32_alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"
+base32_alphabet = "abcdefghijklmnopqrstuvwxyz234567"
 # calculate the reverse mapping
 
 if __name__ == '__main__':
@@ -7,13 +7,13 @@ if __name__ == '__main__':
     #~ print repr(base32_to_ascii_table)
     for ascii in range(256):
         try:
-            binary = base32_alphabet.index(chr(ascii).upper())
+            binary = base32_alphabet.index(chr(ascii).lower())
         except ValueError: # invalid character for base32
             binary = 0
         ascii_to_binary_base32_table[ascii] = binary
 
     # output C definitions
-    print 'static unsigned char binary_to_ascii_base32_table[] = {',
+    print 'static const unsigned char binary_to_ascii_base32_table[] = {',
     for ascii,binary in enumerate(binary_to_ascii_base32_table):
         if ascii % 8 == 0:
             print # line breaks every x chars
@@ -24,7 +24,7 @@ if __name__ == '__main__':
         else:
             print ",",
 
-    print 'static unsigned char ascii_to_binary_base32_table[] = {',
+    print 'static const unsigned char ascii_to_binary_base32_table[] = {',
     for binary,ascii in enumerate(ascii_to_binary_base32_table):
         # line breaks every x chars
         if binary % 8 == 0:

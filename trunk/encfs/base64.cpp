@@ -59,7 +59,7 @@ void changeBase2(unsigned char *src, int srcLen, int src2Pow,
     to be written, then write the value at the tail end of the recursion.
 */
 static
-void changeBase2Inline(unsigned char *src, int srcLen, 
+void changeBase2Inline(unsigned char *src, int srcLen,
 	               int src2Pow, int dst2Pow,
 		       bool outputPartialLastByte,
 		       unsigned long work,
@@ -108,11 +108,11 @@ void changeBase2Inline(unsigned char *src, int srcLen,
     }
 }
 
-void changeBase2Inline(unsigned char *src, int srcLen, 
+void changeBase2Inline(unsigned char *src, int srcLen,
 	               int src2Pow, int dst2Pow,
 		       bool outputPartialLastByte)
 {
-    changeBase2Inline(src, srcLen, src2Pow, dst2Pow, 
+    changeBase2Inline(src, srcLen, src2Pow, dst2Pow,
 	    outputPartialLastByte, 0, 0, 0);
 }
 
@@ -137,12 +137,12 @@ void B64ToAscii(unsigned char *in, int length)
 		ch += 'A' - 12;
 	} else
 	    ch = B642AsciiTable[ ch ];
-	
+
 	in[offset] = ch;
     }
 }
 
-static const unsigned char Ascii2B64Table[] = 
+static const unsigned char Ascii2B64Table[] =
        "                                            01  23456789:;       ";
     //  0123456789 123456789 123456789 123456789 123456789 123456789 1234
     //  0         1         2         3         4         5         6
@@ -177,7 +177,7 @@ void AsciiToB64(unsigned char *out, const unsigned char *in, int length)
 // To avoid any possible overflows we use a translation table with a size of 256
 // bytes and map anything > 31 to the same value modulo 32.
 
-static const unsigned char ascii_to_binary_base32_table[]={
+static const unsigned char ascii_to_binary_base32_table[] = {
 	0,	0,	0,	0,	0,	0,	0,	0,
 	0,	0,	0,	0,	0,	0,	0,	0,
 	0,	0,	0,	0,	0,	0,	0,	0,
@@ -212,41 +212,40 @@ static const unsigned char ascii_to_binary_base32_table[]={
 	0,	0,	0,	0,	0,	0,	0,	0
 };
 
-static const unsigned char binary_to_ascii_base32_table[]={
-	'A',	'B',	'C',	'D',	'E',	'F',	'G',	'H',
-	'I',	'J',	'K',	'L',	'M',	'N',	'O',	'P',
-	'Q',	'R',	'S',	'T',	'U',	'V',	'W',	'X',
-	'Y',	'Z',	'2',	'3',	'4',	'5',	'6',	'7',
-	'A',	'B',	'C',	'D',	'E',	'F',	'G',	'H',
-	'I',	'J',	'K',	'L',	'M',	'N',	'O',	'P',
-	'Q',	'R',	'S',	'T',	'U',	'V',	'W',	'X',
-	'Y',	'Z',	'2',	'3',	'4',	'5',	'6',	'7',
-	'A',	'B',	'C',	'D',	'E',	'F',	'G',	'H',
-	'I',	'J',	'K',	'L',	'M',	'N',	'O',	'P',
-	'Q',	'R',	'S',	'T',	'U',	'V',	'W',	'X',
-	'Y',	'Z',	'2',	'3',	'4',	'5',	'6',	'7',
-	'A',	'B',	'C',	'D',	'E',	'F',	'G',	'H',
-	'I',	'J',	'K',	'L',	'M',	'N',	'O',	'P',
-	'Q',	'R',	'S',	'T',	'U',	'V',	'W',	'X',
-	'Y',	'Z',	'2',	'3',	'4',	'5',	'6',	'7',
-	'A',	'B',	'C',	'D',	'E',	'F',	'G',	'H',
-	'I',	'J',	'K',	'L',	'M',	'N',	'O',	'P',
-	'Q',	'R',	'S',	'T',	'U',	'V',	'W',	'X',
-	'Y',	'Z',	'2',	'3',	'4',	'5',	'6',	'7',
-	'A',	'B',	'C',	'D',	'E',	'F',	'G',	'H',
-	'I',	'J',	'K',	'L',	'M',	'N',	'O',	'P',
-	'Q',	'R',	'S',	'T',	'U',	'V',	'W',	'X',
-	'Y',	'Z',	'2',	'3',	'4',	'5',	'6',	'7',
-	'A',	'B',	'C',	'D',	'E',	'F',	'G',	'H',
-	'I',	'J',	'K',	'L',	'M',	'N',	'O',	'P',
-	'Q',	'R',	'S',	'T',	'U',	'V',	'W',	'X',
-	'Y',	'Z',	'2',	'3',	'4',	'5',	'6',	'7',
-	'A',	'B',	'C',	'D',	'E',	'F',	'G',	'H',
-	'I',	'J',	'K',	'L',	'M',	'N',	'O',	'P',
-	'Q',	'R',	'S',	'T',	'U',	'V',	'W',	'X',
-	'Y',	'Z',	'2',	'3',	'4',	'5',	'6',	'7'
+static const unsigned char binary_to_ascii_base32_table[] = {
+	'a',	'b',	'c',	'd',	'e',	'f',	'g',	'h',
+	'i',	'j',	'k',	'l',	'm',	'n',	'o',	'p',
+	'q',	'r',	's',	't',	'u',	'v',	'w',	'x',
+	'y',	'z',	'2',	'3',	'4',	'5',	'6',	'7',
+	'a',	'b',	'c',	'd',	'e',	'f',	'g',	'h',
+	'i',	'j',	'k',	'l',	'm',	'n',	'o',	'p',
+	'q',	'r',	's',	't',	'u',	'v',	'w',	'x',
+	'y',	'z',	'2',	'3',	'4',	'5',	'6',	'7',
+	'a',	'b',	'c',	'd',	'e',	'f',	'g',	'h',
+	'i',	'j',	'k',	'l',	'm',	'n',	'o',	'p',
+	'q',	'r',	's',	't',	'u',	'v',	'w',	'x',
+	'y',	'z',	'2',	'3',	'4',	'5',	'6',	'7',
+	'a',	'b',	'c',	'd',	'e',	'f',	'g',	'h',
+	'i',	'j',	'k',	'l',	'm',	'n',	'o',	'p',
+	'q',	'r',	's',	't',	'u',	'v',	'w',	'x',
+	'y',	'z',	'2',	'3',	'4',	'5',	'6',	'7',
+	'a',	'b',	'c',	'd',	'e',	'f',	'g',	'h',
+	'i',	'j',	'k',	'l',	'm',	'n',	'o',	'p',
+	'q',	'r',	's',	't',	'u',	'v',	'w',	'x',
+	'y',	'z',	'2',	'3',	'4',	'5',	'6',	'7',
+	'a',	'b',	'c',	'd',	'e',	'f',	'g',	'h',
+	'i',	'j',	'k',	'l',	'm',	'n',	'o',	'p',
+	'q',	'r',	's',	't',	'u',	'v',	'w',	'x',
+	'y',	'z',	'2',	'3',	'4',	'5',	'6',	'7',
+	'a',	'b',	'c',	'd',	'e',	'f',	'g',	'h',
+	'i',	'j',	'k',	'l',	'm',	'n',	'o',	'p',
+	'q',	'r',	's',	't',	'u',	'v',	'w',	'x',
+	'y',	'z',	'2',	'3',	'4',	'5',	'6',	'7',
+	'a',	'b',	'c',	'd',	'e',	'f',	'g',	'h',
+	'i',	'j',	'k',	'l',	'm',	'n',	'o',	'p',
+	'q',	'r',	's',	't',	'u',	'v',	'w',	'x',
+	'y',	'z',	'2',	'3',	'4',	'5',	'6',	'7'
 };
-
 
 // Convert binary base32 to ascii base32 inplace.
 // Caller is responsible for making sure input is in base 32, or else bits will be truncated.
